@@ -1,0 +1,66 @@
+name: 🔧 Bug / Hata
+description: Yeni bir hata bildirimi oluşturun.
+title: "[BUG] "
+labels: ["bug", "triage"]
+projects: ["octo-org/1", "octo-org/44"]
+assignees:
+  - octocat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🚮 Hata Tanımı
+        Lütfen hatayı detaylı bir şekilde tanımlayın.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Tanım
+      description: Hatanın detayları
+      placeholder: |
+        Örn:
+        - Uygulama açılmıyor
+        - X sayfasında beklenmedik hata mesajı çıkıyor
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Nasıl Tekrarlanır?
+      description: Hatayı tekrarlamak için izlenen adımları belirtin.
+      placeholder: |
+        1. Uygulamayı aç
+        2. X sayfasına git
+        3. Hata oluşuyor mu kontrol et
+
+  - type: textarea
+    id: custom_acceptance
+    attributes:
+      label: ✅ İşe Özel Kabul Kriterleri
+      description: |
+        Bu hata için işe özel kabul kriterlerini aşağıdaki gibi markdown checkbox listesi olarak yazabilirsiniz:
+
+        Örnek:
+        `- [ ] Kullanıcıya başarı/başarısızlık bildirilmeli`
+
+        Not: GitHub bazı karakterleri önizlemede bozabilir. Kod düzenleyicide doğru şekilde yazdığınız sürece çalışır.
+      placeholder: |
+        - [ ] ...
+        
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Ek Bilgi veya Notlar
+      description: Ekran görüntüsü, log, ilgili dosyalar vb.
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log Kaydı veya Hata Çıktısı
+      description: İlgili log kaydını veya hata mesajını buraya yapıştırın. Kod bloğu olarak otomatik formatlanacaktır.
+      placeholder: |
+        Örn:
+        - System.NullReferenceException: Object reference not set to an instance of an object.
+        - [2024-05-01 12:34:56] ERROR: Bağlantı hatası
+      render: shell

@@ -1,0 +1,38 @@
+name: PR Kabul Kriteri Kontrolü
+
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  check-acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR açıklamasını kontrol et
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.pull_request.body || "";
+
+            // Sadece '## Kontrol Listesi' başlığından sonrasını al
+            const checklistHeader = '## Kontrol Listesi';
+            const headerIndex = body.indexOf(checklistHeader);
+            let checklistSection = '';
+            if (headerIndex !== -1) {
+              checklistSection = body.substring(headerIndex + checklistHeader.length);
+            }
+
+            // Kabul kriterlerinin kutucuklarını bulalım (sadece checklistSection'da)
+            const allCheckboxes = checklistSection.match(/- \[[ xX]\]/g) || [];
+
+            // Boş kutucuk var mı? (sadece checklistSection'da)
+            const hasUnchecked = checklistSection.includes('- [ ]');
+
+            if (allCheckboxes.length === 0) {
+              core.setFailed("❌ PR açıklamasında kabul kriteri bulunamadı! (Sadece 'Kontrol Listesi' altı kontrol ediliyor)");
+            } else if (hasUnchecked) {
+              core.setFailed("❌ Tüm kabul kriterleri işaretlenmemiş! (Sadece 'Kontrol Listesi' altı kontrol ediliyor)");
+            }
