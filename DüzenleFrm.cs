@@ -33,7 +33,7 @@ namespace deneme12
                 TxtAd.Text = _selectedBook.KitapAd;
                 TxtYazar.Text = _selectedBook.Yazar;
                 TxtSayfa.Text = _selectedBook.Sayfa.ToString();
-                CmbTur.Text = _selectedBook.Tur;
+                CmbTur.Text = _selectedBook.Tur; 
             }
         }
 
